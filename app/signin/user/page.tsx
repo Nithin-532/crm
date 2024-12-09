@@ -23,6 +23,8 @@ export default function SignIn() {
   const router = useRouter();
   const { data: session, status } = useSession()
 
+  console.log(session);
+
   useEffect(() => {
     if (status === "authenticated") {
       router.push("/")
@@ -69,7 +71,6 @@ export default function SignIn() {
     setError("")
     try {
       const result = await signInAuth(username, password, 'user');
-      console.log(result);
       if (result.success) {
         router.push("/")
       } else {

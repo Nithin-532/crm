@@ -9,6 +9,7 @@ import { useState } from "react";
 import { signOutAuth } from "../api/auth/server";
 import { useSession } from "next-auth/react";
 import { toCapitalise } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function ({
     children,
@@ -17,6 +18,7 @@ export default function ({
 }>) {
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const { data: session } = useSession();
+    const router = useRouter();
 
     const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
@@ -58,7 +60,7 @@ export default function ({
                             <DropdownMenuSeparator />
                             <DropdownMenuItem>Profile</DropdownMenuItem>
                             <DropdownMenuItem>Settings</DropdownMenuItem>
-                            <DropdownMenuItem onClick={async() => await signOutAuth()}>Log out</DropdownMenuItem>
+                            <DropdownMenuItem onClick={async () => { await signOutAuth() }}>Log out</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>

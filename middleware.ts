@@ -1,20 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 
-// Define a more precise type for the session
-interface CustomSession {
-  user: {
-    username?: string;
-    role?: number;
-    id?: string;
-    name?: string;
-    firstname?: string;
-    lastname?: string;
-  };
-}
-
 export async function middleware(req: NextRequest) {
-  const session = await auth() as CustomSession | null;
+  const session: any = await auth();
   
   const path = req.nextUrl.pathname;
   

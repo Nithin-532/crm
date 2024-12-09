@@ -224,7 +224,7 @@ export default function () {
           </SidebarContent>
           <SidebarFooter>
             <div className="p-4">
-              <Button variant="outline" className="w-full" onClick={async () => await signOutAuth()}>
+              <Button variant="outline" className="w-full" onClick={async () => { await signOutAuth(); }}>
                 <LogOut className="h-4 w-4 mr-2" />
                 Logout
               </Button>

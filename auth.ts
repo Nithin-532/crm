@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials"
 import { SignInSchema } from "./schema/signInSchema";
 import { prisma } from "./prisma/prisma";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
     providers: [
         Credentials({
             credentials: {

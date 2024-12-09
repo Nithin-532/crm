@@ -34,7 +34,7 @@ export default function() {
       if (result.success) {
         router.push("/")
       } else {
-        console.log(result.err);
+        console.log(result.error);
         setError(result.error || "An unexpected error occurred. Please try again.");
       }
     } catch (error) {

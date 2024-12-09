@@ -1,7 +1,8 @@
 "use server"
 
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
+import { NextResponse } from "next/server";
 
 export async function signInAuth(username: string, password: string, userType: string) {
     try {
@@ -11,6 +12,7 @@ export async function signInAuth(username: string, password: string, userType: s
             userType,
             redirect: false
         });
+
         return { success: true };
     } catch (error) {
         if (error instanceof AuthError) {
@@ -28,9 +30,6 @@ export async function signInAuth(username: string, password: string, userType: s
 }
 
 export async function signOutAuth() {
-    return signOut({
-        redirect: true,
-        redirectTo: '/signin'
-    });
+    await signOut();
 }
 
