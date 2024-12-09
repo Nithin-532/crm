@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lock, Mail } from 'lucide-react'
-import { signInAuth } from "@/app/api/auth/route"
+import { signInAuth } from "@/app/api/auth/server"
 
 export default function() {
   const [username, setUsername] = useState("")

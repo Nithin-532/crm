@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lock, Mail, Phone } from 'lucide-react'
-import { signInAuth } from "../../api/auth/route"
+import { signInAuth } from "../../api/auth/server"
 
 export default function SignIn() {
   const [username, setUsername] = useState("")

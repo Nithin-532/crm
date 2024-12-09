@@ -6,7 +6,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Bell, Menu } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useState } from "react";
-import { signOutAuth } from "../api/auth/route";
+import { signOutAuth } from "../api/auth/server";
 import { useSession } from "next-auth/react";
 import { toCapitalise } from "@/lib/utils";
 
