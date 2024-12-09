@@ -1,8 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "./auth";
 
+// Define a more precise type for the session
+interface CustomSession {
+  user: {
+    username?: string;
+    role?: number;
+    id?: string;
+    name?: string;
+    firstname?: string;
+    lastname?: string;
+  };
+}
+
 export async function middleware(req: NextRequest) {
-  const session = await auth();
+  const session = await auth() as CustomSession | null;
+  
   const path = req.nextUrl.pathname;
   
   const signInRoutes = {
@@ -11,8 +24,8 @@ export async function middleware(req: NextRequest) {
   };
   
   const roleRoutes = {
-    0: '/admin',    
-    1: '/sales/overview' 
+    0: '/admin',
+    1: '/sales/overview'
   };
   
   const salesAllowedRoutes = [
@@ -22,13 +35,14 @@ export async function middleware(req: NextRequest) {
   
   const isSignInRoute = Object.values(signInRoutes).includes(path);
   
-  if (!session && !isSignInRoute) {
+  // Check if session and user exist
+  if (!session?.user && !isSignInRoute) {
     return NextResponse.redirect(new URL(signInRoutes.user, req.url));
   }
   
-  if (session) {
-    //@ts-ignore
-    const role: number = session.user?.role;
+  if (session?.user) {
+    // Safely access role
+    const role = session.user.role;
     
     if (role === 0) {
       if (!path.startsWith('/admin')) {
@@ -46,8 +60,8 @@ export async function middleware(req: NextRequest) {
       }
     }
     
-    if (role && path === '/signin') {
-      //@ts-ignore
+    // Redirect from signin page based on role
+    if (role !== undefined && path === '/signin') {
       if (role === 0) {
         return NextResponse.redirect(new URL(roleRoutes[0], req.url));
       }
