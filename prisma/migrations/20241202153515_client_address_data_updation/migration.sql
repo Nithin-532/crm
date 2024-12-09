@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "ClientAddress" ALTER COLUMN "doorNumber" SET DEFAULT '',
+ALTER COLUMN "address" SET DEFAULT '',
+ALTER COLUMN "lat" DROP NOT NULL,
+ALTER COLUMN "lng" DROP NOT NULL;
