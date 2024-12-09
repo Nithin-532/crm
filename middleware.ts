@@ -46,9 +46,14 @@ export async function middleware(req: NextRequest) {
       }
     }
     
-    if (path === '/signin') {
+    if (role && path === '/signin') {
       //@ts-ignore
-      return NextResponse.redirect(new URL(roleRoutes[role] || '/dashboard', req.url));
+      if (role === 0) {
+        return NextResponse.redirect(new URL(roleRoutes[0], req.url));
+      }
+      if (role === 1) {
+        return NextResponse.redirect(new URL(salesAllowedRoutes[0], req.url));
+      }
     }
   }
   
