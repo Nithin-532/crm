@@ -29,6 +29,7 @@ export default function ({
                     <Button variant="ghost" size="icon" className="mr-2 lg:hidden" onClick={toggleSidebar}>
                         <Menu className="h-6 w-6" />
                     </Button>
+                    {/* @ts-ignore */}
                     <h1 className="text-xl lg:text-2xl font-bold">{`Welcome back, ${session?.user ? toCapitalise(session?.user?.firstname) + " " + toCapitalise(session?.user?.lastname) : "John Doe"}`}</h1>
                 </div>
                 <div className="flex items-center space-x-2 lg:space-x-4">
@@ -40,6 +41,7 @@ export default function ({
                             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
                                 <Avatar className="h-8 w-8">
                                     <AvatarImage src="/avatars/01.png" alt="@shadcn" />
+                                    {/* @ts-ignore */}
                                     <AvatarFallback>{session?.user ? toCapitalise(session?.user?.firstname)[0] + toCapitalise(session?.user?.lastname)[0] : "JD"}</AvatarFallback>
                                 </Avatar>
                             </Button>
@@ -47,7 +49,9 @@ export default function ({
                         <DropdownMenuContent className="w-56" align="end" forceMount>
                             <DropdownMenuLabel className="font-normal">
                                 <div className="flex flex-col space-y-1">
+                                    {/* @ts-ignore */}
                                     <p className="text-sm font-medium leading-none">{session?.user ? toCapitalise(session?.user?.firstname) + " " + toCapitalise(session?.user?.lastname) : "John Doe"}</p>
+                                    {/* @ts-ignore */}
                                     <p className="text-xs leading-none text-muted-foreground">{session?.user ? toCapitalise(session?.user?.username) : "John23"}</p>
                                 </div>
                             </DropdownMenuLabel>

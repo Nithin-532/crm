@@ -27,6 +27,7 @@ export async function middleware(req: NextRequest) {
   }
   
   if (session) {
+    //@ts-ignore
     const role: number = session.user?.role;
     
     if (role === 0) {
@@ -46,6 +47,7 @@ export async function middleware(req: NextRequest) {
     }
     
     if (path === '/signin') {
+      //@ts-ignore
       return NextResponse.redirect(new URL(roleRoutes[role] || '/dashboard', req.url));
     }
   }

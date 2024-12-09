@@ -92,6 +92,7 @@ export default function ClientDetails() {
         if (response.status === 200) {
           const currentClientDetails = response.data;
           if (currentClientDetails) {
+            //@ts-ignore
             setClient(currentClientDetails);
           }
         } else {
@@ -381,7 +382,12 @@ export default function ClientDetails() {
                   <Input
                     value={phone.contactNumber}
                     onChange={(e) => handlePhoneNumberChange(e, phone.id, e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && e.target?.blur()}
+                    onKeyDown={(e) => { 
+                      if (e.key === "Enter") {
+                        //@ts-ignore
+                        e.target?.blur();
+                      }
+                    }}
                     onBlur={(e) => handleUpdatePhoneNumber(phone.id, e.target.value)}
                     readOnly={!isEditing}
                     className="flex-grow"

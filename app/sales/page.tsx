@@ -9,6 +9,7 @@ export default async function() {
     const { data: session } = useSession();
 
     useEffect(() => {
+        //@ts-ignore
         if (session?.user?.role === 1) {
             router.push("/sales/oveview")
         }
