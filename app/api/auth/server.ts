@@ -28,6 +28,9 @@ export async function signInAuth(username: string, password: string, userType: s
 }
 
 export async function signOutAuth() {
-    return await signOut({ redirectTo: '/signin' });
+    return signOut({
+        redirect: true,
+        redirectTo: '/signin'
+    });
 }
 

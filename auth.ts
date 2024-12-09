@@ -53,6 +53,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
         }),
     ],
+    trustHost: true,
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         async jwt({ token, user }: { token: any, user: any }) {
