@@ -48,7 +48,7 @@ type Client = ClientApiType | null;
 
 type ClientArray = Client[];
 
-const getClientStatusNum = (value) => {
+const getClientStatusNum = (value: any) => {
   switch (value) {
     case "Active":
       return 2;
@@ -59,7 +59,7 @@ const getClientStatusNum = (value) => {
   }
 }
 
-const getClientStatusValue = (value) => {
+const getClientStatusValue = (value: any) => {
   switch (value) {
     case 2:
       return "Active";
@@ -71,7 +71,7 @@ const getClientStatusValue = (value) => {
 }
 
 export default function () {
-  const [clients, setClients] = useState([]);
+  const [clients, setClients] = useState<any>([]);
   const [isClientsLoading, setIsClientsLoading] = useState(true);
   const [search, setSearch] = useState("")
   const [statusFilter, setStatusFilter] = useState("All")
@@ -82,9 +82,9 @@ export default function () {
   const memberId = Number(session?.user?.id);
   console.log(session?.user);
 
-  const filteredClients = clients.filter(client =>
+  const filteredClients = clients.filter((client: any) =>
     (statusFilter === "All" || client.status === getClientStatusNum(statusFilter)) &&
-    Object.values(client).some(value =>
+    Object.values(client).some((value: any) =>
       value.toString().toLowerCase().includes(search.toLowerCase())
     )
   )
@@ -115,7 +115,7 @@ export default function () {
     // setIsClientsLoading(false);
   }, [])
 
-  const handleSave = async (updatedClient) => {
+  const handleSave = async (updatedClient: any) => {
     const loadId = toast.loading("Updating exisitng client...");
     const updatedClientData = {
       name: updatedClient.name,
@@ -139,7 +139,7 @@ export default function () {
     toast.dismiss(loadId);
   }
 
-  const handleAdd = async (newClient) => {
+  const handleAdd = async (newClient: any) => {
     const loadId = toast.loading("Creating new client...");
     const newClientData = {
       name: newClient.name,
@@ -296,7 +296,7 @@ export default function () {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredClients.map((client) => (
+                  {filteredClients.map((client: any) => (
                     <TableRow key={client.id} className="cursor-pointer" onClick={(e) => { e.stopPropagation(); openClient(client.id) }}>
                       <TableCell className="font-medium">{client.name}</TableCell>
                       <TableCell>{client.number}</TableCell>
@@ -353,7 +353,7 @@ export default function () {
   )
 }
 
-function ClientForm({ client, onSave }) {
+function ClientForm({ client, onSave } : { client: any, onSave: any }) {
   const [editedClient, setEditedClient] = useState<ClientFormType>(client || {
     name: "",
     number: "",
@@ -407,6 +407,7 @@ function ClientForm({ client, onSave }) {
       </div>
       <div>
         <label htmlFor="description" className="block text-sm font-medium text-gray-700">Remarks</label>
+        {/*@ts-ignore*/}
         <Input id="description" name="description" value={editedClient.remarks} onChange={handleChange} />
       </div>
       <Button type="submit">{client ? 'Save Changes' : 'Add Client'}</Button>

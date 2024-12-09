@@ -70,14 +70,14 @@ enum TeamRoles {
 const AvailableTeams = [{ id: 1, name: 'Sales' }];
 
 export default function () {
-  const [teamMembers, setTeamMembers] = useState<TeamMember[]>()
-  const [filteredMembers, setFilteredMembers] = useState<TeamMember[]>()
+  const [teamMembers, setTeamMembers] = useState<any[]>()
+  const [filteredMembers, setFilteredMembers] = useState<any[]>()
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedTeam, setSelectedTeam] = useState<string | number | null>(null)
   const [teams, setTeams] = useState<any>(null);
   const [isAddMemberOpen, setIsAddMemberOpen] = useState(false)
   const [isEditMemberOpen, setIsEditMemberOpen] = useState(false)
-  const [newMember, setNewMember] = useState<Omit<TeamMember, 'id'>>({
+  const [newMember, setNewMember] = useState<any>({
     username: "",
     password: "",
     number: "",
@@ -149,6 +149,7 @@ export default function () {
       const response = await createMember(newMember.username, newMember.password, newMember.firstname, newMember.lastname, newMember.number, newMember.teamId, newMember.status);
       if (response.status === 200) {
         const data = response.data;
+        //@ts-ignore
         setTeamMembers([...teamMembers, data]);
         toast.dismiss(loadId);
         toast.success("Successfully added new client");
@@ -196,6 +197,7 @@ export default function () {
   }
 
   const handleDeleteMember = (id: number) => {
+    //@ts-ignore
     setTeamMembers(teamMembers.filter(member => member.id !== id))
   }
 
@@ -433,6 +435,7 @@ export default function () {
                                 <TableCell className="text-center">{`${toCapitalise(member.firstname)} ${toCapitalise(member.lastname)}`}</TableCell>
                                 <TableCell className="text-center">{member.username}</TableCell>
                                 <TableCell className="text-center">{member.number}</TableCell>
+                                {/*@ts-ignore*/}
                                 <TableCell className="text-center">{Roles[member.teamId]}</TableCell>
                                 <TableCell className="text-center">{member.status}</TableCell>
                                 <TableCell className="text-center">
@@ -577,9 +580,8 @@ export default function () {
                 <Label htmlFor="team" className="text-right">
                   Team
                 </Label>
-                <Select
-                  value={Roles[editingMember.teamId]}
-                  onValueChange={(value) => setEditingMember({ ...editingMember, team: TeamRoles[value] })}
+                {/* @ts-ignore */}
+                <Select value={Roles[editingMember.teamId]} onValueChange={(value) => setEditingMember({ ...editingMember, team: TeamRoles[value] })}
                 >
                   <SelectTrigger className="col-span-3">
                     <SelectValue placeholder="Select a team" />
