@@ -6,3 +6,5 @@ export default function Home() {
     <div>CRM</div>
   );
 }
+
+export const dynamic = 'force-dynamic';
