@@ -102,7 +102,7 @@ export default function () {
         company: val.company,
         status: val.status,
         remarks: val.remarks,
-        number: val.contactDetails[0].contactNumber,
+        number: val.contactDetails[0]?.contactNumber ?? "",
         numberId: val.contactDetails[0].id,
       }));
       setClients(newClientData);
