@@ -103,7 +103,7 @@ export default function () {
         status: val.status,
         remarks: val.remarks,
         number: val.contactDetails[0]?.contactNumber ?? "",
-        numberId: val.contactDetails[0].id,
+        numberId: val.contactDetails[0]?.id ?? null,
       }));
       setClients(newClientData);
     }
