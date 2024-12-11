@@ -42,7 +42,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useSession } from "next-auth/react"
 import { toCapitalise } from "@/lib/utils"
 import { signOutAuth } from "../api/auth/server"
-import { createMember, getTeams, updateMember } from "../api/member/server"
+import { createMember, deleteMember, getTeams, updateMember } from "../api/member/server"
 import { TeamMembersSkeleton } from "@/components/TeamMembersSkeleton"
 import { toast } from "sonner"
 
@@ -182,12 +182,12 @@ export default function () {
         if (response.status === 200) {
           const data = response.data;
           toast.dismiss(loadId);
-          toast.success("Successfully updated client");
+          toast.success("Successfully updated member");
           console.log(data);
         }
       } catch (e) {
         toast.dismiss(loadId);
-        toast.error("Error while updating client");
+        toast.error("Error while updating member");
       } finally {
         toast.dismiss(loadId);
         setIsEditMemberOpen(false)
@@ -196,9 +196,23 @@ export default function () {
     }
   }
 
-  const handleDeleteMember = (id: number) => {
+  const handleDeleteMember = async (id: number) => {
     //@ts-ignore
-    setTeamMembers(teamMembers.filter(member => member.id !== id))
+    const loadId = toast.loading("Deleting member...");
+    const member = teamMembers?.filter(member => member.id === id)[0];
+    if (id) {
+      try {
+        const response = await deleteMember(member.username, id);
+        if (response.status === 200) {
+          toast.dismiss(loadId);
+          toast.success("Successfully deleted member");
+          setTeamMembers(teamMembers ? teamMembers.filter(member => member.id !== id) : []);
+        }
+      } catch (e) {
+        toast.dismiss(loadId);
+        toast.error("Error while deleting member");
+      }
+    }
   }
 
   const toggleSidebar = () => {
@@ -449,14 +463,15 @@ export default function () {
                                     <DropdownMenuContent align="end">
                                       <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                       <DropdownMenuSeparator />
-                                      <DropdownMenuItem onClick={() => {
+                                      <DropdownMenuItem onClick={(e) => {
+                                        e.stopPropagation();
                                         setEditingMember(member)
                                         setIsEditMemberOpen(true)
                                       }}>
                                         <Edit className="mr-2 h-4 w-4" /> Edit member
                                       </DropdownMenuItem>
                                       <DropdownMenuItem
-                                        onClick={() => handleDeleteMember(member.id)}
+                                        onClick={(e) => { e.stopPropagation(); handleDeleteMember(member.id) }}
                                         className="text-red-600"
                                       >
                                         <Trash className="mr-2 h-4 w-4" /> Delete member
