@@ -10,7 +10,8 @@ export async function signInAuth(username: string, password: string, userType: s
             username,
             password,
             userType,
-            redirect: false
+            redirect: false,
+            redirectTo: userType === 'admin' ? '/admin' : '/sales/overview'
         });
 
         return { success: true };

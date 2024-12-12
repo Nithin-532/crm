@@ -112,7 +112,7 @@ export default function () {
 
   useEffect(() => {
     fetchClients();
-    setIsClientsLoading(false);
+    // setIsClientsLoading(false);
   }, [])
 
   const handleSave = async (updatedClient: any) => {

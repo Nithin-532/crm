@@ -11,9 +11,9 @@ import { Label } from "@/components/ui/label"
 
 const behaviorOptions = ["cool", "hot-headed", "professional", "indecisive"]
 const statusOptions = [
-  { value: 1, label: "Active" },
-  { value: 2, label: "Inactive" },
-  { value: 3, label: "Pending" }
+  { value: 2, label: "Active" },
+  { value: 0, label: "Inactive" },
+  { value: 1, label: "Pending" }
 ]
 
 const getClientStatusNum = (value: any) => {
@@ -34,7 +34,7 @@ export default function AddClientForm({ onSave }: { onSave: any }) {
     description: "",
     company: "",
     number: "",
-    status: 1,
+    status: 2,
     memberId: 1, // Assuming a default value, adjust as needed
     behaviour: "professional",
     dealValue: 0,

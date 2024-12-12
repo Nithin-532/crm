@@ -20,10 +20,11 @@ export default function() {
   const { data: session, status } = useSession()
 
   useEffect(() => {
+    console.log(session);
     if (status === "authenticated") {
       router.push("/")
     }
-  }, [status, router])
+  }, [status, session, router])
 
   const handleAdminSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -32,7 +33,7 @@ export default function() {
     try {
       const result = await signInAuth(username, password, 'admin');
       if (result.success) {
-        router.push("/")
+        // router.push("/")
       } else {
         console.log(result.error);
         setError(result.error || "An unexpected error occurred. Please try again.");

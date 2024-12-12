@@ -72,7 +72,7 @@ export default function SignIn() {
     try {
       const result = await signInAuth(username, password, 'user');
       if (result.success) {
-        router.push("/")
+        // router.push("/")
       } else {
         setError(result.error || "An unexpected error occurred. Please try again.");
       }

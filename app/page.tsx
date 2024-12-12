@@ -1,7 +1,13 @@
-// import { auth } from "../aut"
+import { auth } from "@/auth";
 
-export default function Home() {
-  // const session = await auth
+
+export default async function Home() {
+  const session = await auth();
+
+  if (session) {
+    console.log(session);
+  }
+
   return (
     <div>CRM</div>
   );
